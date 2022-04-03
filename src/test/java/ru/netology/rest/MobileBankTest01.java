@@ -3,6 +3,7 @@ package ru.netology.rest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class MobileBankTest01 {
 
@@ -18,7 +19,10 @@ public class MobileBankTest01 {
                 // URI относительно baseUri
                 .get("/demo/accounts")
 
-                .then() // Проверки
-                .statusCode(200);
+                .then()
+                .statusCode(200)
+                // static import для JsonSchemaValidator.matchesJsonSchemaInClasspath
+                .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
+        ;
     }
 }
